@@ -1,4 +1,6 @@
-
+"""
+Block A
+"""
 
 """
 Reverse a string using the two pointers technique.
@@ -112,3 +114,86 @@ class Solution:
                 right -= 1
 
         return max_area
+    
+"""
+Block B
+"""
+
+"""
+Removde duplicates from sorted array
+"""
+class Solution:
+    def removeDuplicates(self, nums):
+        k = 0
+        for i in range(len(nums)):
+            if nums[k] != nums[i]:
+                k += 1
+                nums[k] = nums[i]
+        return k + 1
+    
+# nums = [0,0,1,1,1,2,2,3,3,4]
+# solution = Solution()
+# print(solution.removeDuplicates(nums))
+# print(nums)
+
+"""
+Move zeroes
+"""
+class Solution:
+    def moveZeroes(self, nums):
+        """
+        *
+        [0, 1, 2, 3, 0, 12]
+            *
+        """
+        k = 0
+        for i in range(len(nums)):
+            if nums[i] !=0:
+                nums[k], nums[i] = nums[i], nums[k]
+                k += 1
+
+
+# nums = [0,1,0,3,12]
+# solution = Solution()
+# print(solution.moveZeroes(nums=nums))   
+# print(nums)
+
+"""
+Block C
+"""
+
+"""
+is subsequence
+"""
+class Solution:
+    def isSubsequence(self, s, t):
+        p1 = 0
+        p2 = 0
+        while p1 < len(s) and p2 < len(t):
+            if s[p1] == t[p2]:
+                p1 += 1
+            p2 += 1
+
+        return p1 == len(s)
+    
+"""
+merge sorted array
+"""
+class Solution:
+    def merge(self, nums1, m, nums2, n):
+        result = []
+        p1 = 0
+        p2 = 0
+
+        while p1 < m and p2 < n:
+            if nums1[p1] < nums2[p2]:
+                result.append(nums1[p1])
+                p1 += 1
+            else:
+                result.append(nums2[p2])
+                p2 += 1
+        for k in range(p1, m):
+            result.append(nums1[k])
+
+        for k in range(p2, n):
+            result.append(nums2[k])
