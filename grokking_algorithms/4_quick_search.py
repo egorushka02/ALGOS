@@ -33,4 +33,3 @@ def quicksort(array):
         return quicksort(less) + [pivot] + quicksort(greater)
     
 print(quicksort([2, 0, 9, -2, 65, 8]))
-
