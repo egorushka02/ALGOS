@@ -206,3 +206,196 @@ class Solution(object):
             prev = current
             current = tmp
         return prev
+    
+"""
+234. Palindrome Linked List
+"""
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def isPalindrome(self, head):
+        """
+        :type head: Optional[ListNode]
+        :rtype: bool
+        """
+        def middle(head):
+            slow = head
+            fast = head
+            while fast and fast.next:
+                fast = fast.next.next
+                slow = slow.next
+            return slow
+
+        def reverse(head):
+            prev = None
+            current = head
+            while current:
+                tmp = current.next
+                current.next = prev
+                prev = current
+                current = tmp
+            return prev
+
+        mid = middle(head)
+        second = reverse(mid)
+        first = head
+
+        while first and second:
+            if first.val != second.val:
+                return False
+            first = first.next
+            second = second.next
+            
+        return True        
+    
+
+"""
+83. Remove Duplicates from Sorted List
+"""
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        current = head
+        while current and current.next:
+            if current.val == current.next.val:
+                current.next = current.next.next
+            else:
+                current = current.next
+        return head
+        
+"""
+19. Remove Nth Node From End of List
+"""
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: Optional[ListNode]
+        :type n: int
+        :rtype: Optional[ListNode]
+        """
+        dummy = ListNode()
+        dummy.next = head
+        
+        first = dummy
+        second = dummy
+
+        for i in range(n+1):
+            first = first.next
+
+        while first:
+            first = first.next
+            second = second.next
+        second.next = second.next.next
+
+        return dummy.next
+    
+"""
+24. Swap Nodes in Pairs
+"""
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        dummy = ListNode()
+        dummy.next = head
+
+        current = dummy
+        while current.next and current.next.next:
+            first = current.next
+            second = current.next.next
+
+            first.next = second.next
+            second.next = first
+            current.next = second
+
+            current = first
+
+        return dummy.next
+    
+"""
+21. Merge Two Sorted Lists
+"""
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def mergeTwoLists(self, list1, list2):
+        """
+        :type list1: Optional[ListNode]
+        :type list2: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        dummy = ListNode()
+        current = dummy
+        p1 = list1
+        p2 = list2
+        while p1 and p2:
+            if p1.val < p2.val:
+                current.next = p1
+                p1 = p1.next
+            else:
+                current.next = p2
+                p2 = p2.next
+            current = current.next
+        
+        if p1:
+            current.next = p1
+        else:
+            current.next = p2
+
+        return dummy.next
+    
+
+"""
+141. Linked List Cycle
+"""
+# use two pointers, slow and fast. 
+# Move slow by one step and fast by two steps. 
+# If there is a cycle, they will eventually meet. 
+# If fast reaches the end of the list, there is no cycle.
+# Definition for singly-linked list. 
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        slow = head
+        fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
